@@ -18,4 +18,4 @@ const customerPreferanceSchema = new Schema(
   }
 );
 
-export default mongoose.model("Product", customerPreferanceSchema);
+export default mongoose.model("Preferance", customerPreferanceSchema);
