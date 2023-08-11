@@ -1,28 +1,31 @@
 import React, { useEffect, useState } from "react";
 import "./ProductList.css";
-import products from "../../api/products.json";
-import BeforeCart from "./CartButtons/BeforeCart";
-import AfterCart from "./CartButtons/AfterCart";
 import { useSelector } from "react-redux";
-
-
-
+import newRequest from "../../utils/newRequest";
+import { useQuery } from "@tanstack/react-query";
 
 const ProductList = () => {
 
-  const {cartCount, cartList} = useSelector((state)=>state.cart)
-  
 
+  // @tanstack/react-query data fetching
+  const { data } = useQuery({
+    queryKey: ["products"],
+    queryFn: () =>
+      newRequest.get(`/products`).then((res) => {
+        return res.data;
+      }),
+  });
 
   return (
     <section className="container">
-      {products?.map((product, key) => {
+      {data?.map((product, key) => {
         return (
           <div className="product-container" key={key}>
             <img src={product?.image} />
-            <h1>{product?.title}</h1>
-            {cartCount > 0 ? <AfterCart /> 
-            : <BeforeCart/>}
+            <h1>
+              {product.productId} . {product?.productName}
+            </h1>
+            <h1>&#8377; {product.price}</h1>
           </div>
         );
       })}
