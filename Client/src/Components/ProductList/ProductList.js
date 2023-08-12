@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./ProductList.css";
-import { useSelector } from "react-redux";
 import newRequest from "../../utils/newRequest";
 import { useQuery } from "@tanstack/react-query";
 
 const ProductList = () => {
-
-
   // @tanstack/react-query data fetching
   const { data } = useQuery({
     queryKey: ["products"],
@@ -16,6 +13,7 @@ const ProductList = () => {
       }),
   });
 
+  console.log(data)
   return (
     <section className="container">
       {data?.map((product, key) => {

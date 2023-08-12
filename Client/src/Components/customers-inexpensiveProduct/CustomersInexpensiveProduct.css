@@ -1,0 +1,38 @@
+.table-container {
+    width: 100%;
+    padding: 0 16px; /* Add padding to create a gap */
+    overflow-x: auto;
+  }
+  
+  .responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  
+  .responsive-table th,
+  .responsive-table td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  @media (max-width: 600px) {
+    .responsive-table {
+      display: block;
+    }
+  
+    .responsive-table th,
+    .responsive-table td {
+      display: block;
+      width: 100%;
+      text-align: right;
+    }
+  
+    .responsive-table tr {
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  
