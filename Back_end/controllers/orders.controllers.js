@@ -1,6 +1,4 @@
 import Order from "../models/orders.model.js";
-import CustomerPreference from "../models/customerPreferance.model.js"; // Import your CustomerPreference model
-import Product from "../models/products.model.js"; // Import your Product model
 
 export const createOrder = async (req, res) => {
   try {
@@ -90,14 +88,102 @@ export const getOrder = async (req, res) => {
 };
 
 export const getAllCustomers = async (req, res) => {
-  console.log("kkkkk");
-  console.log("]]]]]]]]]]]");
   try {
+    // Find all orders of the specified customer
+    const orders = await Order.aggregate([
+      {
+        $match: { customerId: cusId },
+      },
+      {
+        $lookup: {
+          from: "preferances",
+          localField: "preferanceId",
+          foreignField: "preferanceId",
+          as: "preferanceData",
+        },
+      },
+      {
+        $unwind: "$preferanceData",
+      },
+      {
+        $unwind: "$preferanceData.productId",
+      },
+      {
+        $lookup: {
+          from: "products",
+          let: { productId: "$preferanceData.productId" },
+          pipeline: [
+            {
+              $match: {
+                $expr: { $eq: ["$productId", "$$productId"] },
+              },
+            },
+          ],
+          as: "popularProducts",
+        },
+      },
+    ]);
+
+    res.status(200).json(orders);
   } catch (error) {
-    console.log(error)
+    console.log(error.message);
+    res.status(500).json({
+      message: "Error finding most popular product",
+      error: error.message,
+    });
   }
 };
 
-export const getInexpensive = (req, res)=>{
-  console.log("wooo")
-}
+export const getInexpensive = async (req, res) => {
+  try {
+    // Find all orders of the specified customer
+    const orders = await Order.aggregate([
+      {
+        $match: { customerId: cusId },
+      },
+      {
+        $lookup: {
+          from: "preferances",
+          localField: "preferanceId",
+          foreignField: "preferanceId",
+          as: "preferanceData",
+        },
+      },
+      {
+        $unwind: "$preferanceData",
+      },
+      {
+        $unwind: "$preferanceData.productId",
+      },
+      {
+        $lookup: {
+          from: "products",
+          let: { productId: "$preferanceData.productId" },
+          pipeline: [
+            {
+              $match: {
+                $expr: { $eq: ["$productId", "$$productId"] },
+              },
+            },
+          ],
+          as: "popularProducts",
+        },
+      },
+      {
+        $group: {
+          _id: "$preferanceData.productId",
+          count: { $sum: 1 },
+          popularProducts: { $first: "$popularProducts" },
+        },
+      },
+    ]);
+
+    res.status(200).json(orders);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({
+      message: "Error finding most popular product",
+      error: error.message,
+    });
+  }
+};

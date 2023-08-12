@@ -15,8 +15,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<ProductList />} />
-          <Route path="/popular" element={<PopularProducts/>}/>
-          <Route path="/customer" element={<CustomersAllProducts/>}/>
+          <Route path="/popular" element={<PopularProducts />} />
+          <Route path="/customer" element={<CustomersAllProducts />} />
         </Routes>
       </Router>
     </QueryClientProvider>

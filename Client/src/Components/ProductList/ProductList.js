@@ -13,7 +13,7 @@ const ProductList = () => {
       }),
   });
 
-  console.log(data)
+  console.log(data);
   return (
     <section className="container">
       {data?.map((product, key) => {
