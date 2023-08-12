@@ -45,7 +45,7 @@ const CustomersAllProducts = () => {
         <table className="responsive-table">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>No</th>
               <th>Name</th>
             </tr>
           </thead>

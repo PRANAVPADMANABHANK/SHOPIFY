@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './PopularProducts.css'; // Import your CSS file
 import newRequest from '../../utils/newRequest';
+import ProductList from '../ProductList/ProductList';
 
 const PopularProducts = () => {
   const [selectedItem, setSelectedItem] = useState('');
@@ -32,6 +33,7 @@ const PopularProducts = () => {
   ];
 
   return (
+    <>
     <div className="popular-products">
       {products.map((product) => (
         <div
@@ -43,6 +45,8 @@ const PopularProducts = () => {
         </div>
       ))}
     </div>
+    <ProductList/>
+    </>
   );
 };
 
