@@ -23,7 +23,7 @@ export const createOrder = async (req, res) => {
 
 export const getOrder = async (req, res) => {
   let cusId = req.params.id;
-
+  console.log(cusId);
   try {
     // Find all orders of the specified customer
     const orders = await Order.aggregate([
@@ -77,6 +77,7 @@ export const getOrder = async (req, res) => {
       },
     ]);
 
+    console.log(orders, "]]]]]]]");
     res.status(200).json(orders);
   } catch (error) {
     console.log(error.message);
@@ -88,102 +89,63 @@ export const getOrder = async (req, res) => {
 };
 
 export const getAllCustomers = async (req, res) => {
+  console.log("hey");
   try {
-    // Find all orders of the specified customer
-    const orders = await Order.aggregate([
-      {
-        $match: { customerId: cusId },
-      },
-      {
-        $lookup: {
-          from: "preferances",
-          localField: "preferanceId",
-          foreignField: "preferanceId",
-          as: "preferanceData",
-        },
-      },
-      {
-        $unwind: "$preferanceData",
-      },
-      {
-        $unwind: "$preferanceData.productId",
-      },
-      {
-        $lookup: {
-          from: "products",
-          let: { productId: "$preferanceData.productId" },
-          pipeline: [
-            {
-              $match: {
-                $expr: { $eq: ["$productId", "$$productId"] },
-              },
-            },
-          ],
-          as: "popularProducts",
-        },
-      },
-    ]);
-
-    res.status(200).json(orders);
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json({
-      message: "Error finding most popular product",
-      error: error.message,
-    });
+    console.log(error);
   }
 };
 
-export const getInexpensive = async (req, res) => {
-  try {
-    // Find all orders of the specified customer
-    const orders = await Order.aggregate([
-      {
-        $match: { customerId: cusId },
-      },
-      {
-        $lookup: {
-          from: "preferances",
-          localField: "preferanceId",
-          foreignField: "preferanceId",
-          as: "preferanceData",
-        },
-      },
-      {
-        $unwind: "$preferanceData",
-      },
-      {
-        $unwind: "$preferanceData.productId",
-      },
-      {
-        $lookup: {
-          from: "products",
-          let: { productId: "$preferanceData.productId" },
-          pipeline: [
-            {
-              $match: {
-                $expr: { $eq: ["$productId", "$$productId"] },
-              },
-            },
-          ],
-          as: "popularProducts",
-        },
-      },
-      {
-        $group: {
-          _id: "$preferanceData.productId",
-          count: { $sum: 1 },
-          popularProducts: { $first: "$popularProducts" },
-        },
-      },
-    ]);
+// export const getInexpensive = async (req, res) => {
+//   try {
+//     // Find all orders of the specified customer
+//     const orders = await Order.aggregate([
+//       {
+//         $match: { customerId: cusId },
+//       },
+//       {
+//         $lookup: {
+//           from: "preferances",
+//           localField: "preferanceId",
+//           foreignField: "preferanceId",
+//           as: "preferanceData",
+//         },
+//       },
+//       {
+//         $unwind: "$preferanceData",
+//       },
+//       {
+//         $unwind: "$preferanceData.productId",
+//       },
+//       {
+//         $lookup: {
+//           from: "products",
+//           let: { productId: "$preferanceData.productId" },
+//           pipeline: [
+//             {
+//               $match: {
+//                 $expr: { $eq: ["$productId", "$$productId"] },
+//               },
+//             },
+//           ],
+//           as: "popularProducts",
+//         },
+//       },
+//       {
+//         $group: {
+//           _id: "$preferanceData.productId",
+//           count: { $sum: 1 },
+//           popularProducts: { $first: "$popularProducts" },
+//         },
+//       },
+//     ]);
 
-    res.status(200).json(orders);
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).json({
-      message: "Error finding most popular product",
-      error: error.message,
-    });
-  }
-};
+//     res.status(200).json(orders);
+//   } catch (error) {
+//     console.log(error.message);
+//     res.status(500).json({
+//       message: "Error finding most popular product",
+//       error: error.message,
+//     });
+//   }
+// };

@@ -9,6 +9,7 @@ const ProductList = () => {
     queryKey: ["products"],
     queryFn: () =>
       newRequest.get(`/products`).then((res) => {
+        console.log(res,"res")
         return res.data;
       }),
   });

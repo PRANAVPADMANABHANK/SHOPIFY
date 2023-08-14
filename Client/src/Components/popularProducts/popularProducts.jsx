@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
-import './PopularProducts.css'; // Import your CSS file
+import React, { useState, useEffect } from 'react';
+import './PopularProducts.css';
 import newRequest from '../../utils/newRequest';
-import ProductList from '../ProductList/ProductList';
+import ProductList1 from '../ProductList1/ProductList1';
+import axios from 'axios';
 
 const PopularProducts = () => {
   const [selectedItem, setSelectedItem] = useState('');
+  const [fetchedData, setFetchedData] = useState(null); // State to store fetched data
 
   // Function to select an item
   const selectItem = async (itemId) => {
     setSelectedItem(itemId);
-    console.log(itemId,"]]]]]]")
+    console.log(itemId, ']]]]]]');
+    
     try {
-      const res = await fetch(newRequest(`/orders/${itemId}`));
-      console.log('Response status:', res.status);
+      const response = await axios.get(`http://localhost:8800/api/orders/${itemId}`);
+      console.log(response.data, 'Response status:');
+      setFetchedData(response.data); // Update the state with fetched data
       
-      console.log(res,"[[[[[["); // Handle the fetched data
     } catch (error) {
       console.error('Error fetching most popular product:', error);
     }
   };
-
-  
-
 
   // Sample product data
   const products = [
@@ -45,8 +45,8 @@ const PopularProducts = () => {
         </div>
       ))}
     </div>
-    <ProductList/>
-    </>
+      {fetchedData && <ProductList1 data={fetchedData} />} 
+      </>
   );
 };
 
