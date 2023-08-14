@@ -1,7 +1,6 @@
 import React from "react";
 import "./ProductList1.css";
-import newRequest from "../../utils/newRequest";
-import { useQuery } from "@tanstack/react-query";
+
 
 const ProductList1 = ({ data }) => {
   const products = data.flatMap((item) => item.popularProducts);

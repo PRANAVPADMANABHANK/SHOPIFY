@@ -23,7 +23,7 @@ export const createOrder = async (req, res) => {
 
 export const getOrder = async (req, res) => {
   let cusId = req.params.id;
-  console.log(cusId);
+  
   try {
     // Find all orders of the specified customer
     const orders = await Order.aggregate([
@@ -77,7 +77,7 @@ export const getOrder = async (req, res) => {
       },
     ]);
 
-    console.log(orders, "]]]]]]]");
+    
     res.status(200).json(orders);
   } catch (error) {
     console.log(error.message);
