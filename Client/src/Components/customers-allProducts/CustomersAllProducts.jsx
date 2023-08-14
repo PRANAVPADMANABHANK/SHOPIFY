@@ -6,47 +6,29 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const CustomersAllProducts = () => {
-  // const [customerData, setCustomerData] = useState([]);
+  
+ // @tanstack/react-query data fetching
+const { data } = useQuery({
+  queryKey: ["allCustomers"],
+  queryFn: () =>
+    newRequest.get(`orders/allCustomers`).then((res) => {
+      console.log("reached");
+      return res.data;
+    }),
+});
+console.log(data, ")))))))))");
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await newRequest.get("orders/allCustomers"); // Use newRequest here
-  //       console.log("Response:", response);
+// @tanstack/react-query data fetching
+const { data: dataInexpesive } = useQuery({
+  queryKey: ["inexpensive"],
+  queryFn: () =>
+    newRequest.get(`orders/inexpensive`).then((res) => {
+      console.log("reached");
+      return res.data; // Use res.data instead of res.dataInexpesive
+    }),
+});
 
-  //       // Assuming response.data is an array of customer data
-  //       setCustomerData(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-  // useEffect(() => {
-  //   const fetchInexpensiveData = async () => {
-  //     try {
-  //       const response = await newRequest.get("orders/inexpensive");
-  //       console.log("Inexpensive Response:", response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching inexpensive data:", error);
-  //     }
-  //   };
-
-  //   fetchInexpensiveData();
-  // }, []);
-
-  // @tanstack/react-query data fetching
-  const { data } = useQuery({
-    queryKey: ["orders"],
-    queryFn: () =>
-      newRequest.get(`orders/allCustomers`).then((res) => {
-        console.log("reached")
-        return res.data;
-      }),
-  });
-  console.log(data, ")))))))))")
+console.log(dataInexpesive, "]]]]");
 
  
 

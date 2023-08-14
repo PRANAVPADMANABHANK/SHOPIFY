@@ -1,4 +1,6 @@
 import Order from "../models/orders.model.js";
+import User from "../models/orders.model.js";
+import Preferance from "../models/customerPreferance.model.js";
 
 export const createOrder = async (req, res) => {
   try {
@@ -23,7 +25,7 @@ export const createOrder = async (req, res) => {
 
 export const getOrder = async (req, res) => {
   let cusId = req.params.id;
-  
+
   try {
     // Find all orders of the specified customer
     const orders = await Order.aggregate([
@@ -77,7 +79,6 @@ export const getOrder = async (req, res) => {
       },
     ]);
 
-    
     res.status(200).json(orders);
   } catch (error) {
     console.log(error.message);
@@ -89,63 +90,27 @@ export const getOrder = async (req, res) => {
 };
 
 export const getAllCustomers = async (req, res) => {
-  console.log("hey");
+   try {
+    const productIdsToCheck = [1, 2, 3, 4, 5];
+
+    const usersWithMatchingPreferences = await User.find({
+      customerId: { $in: ['user1', 'user2', 'user3', 'user4', 'user5'] },
+      
+    });
+   
+    
+
+    // Send the response back to the client
+    res.status(200).json(usersWithMatchingPreferences);
+  } catch (error) {
+    console.error("Error checking user preferences:", error);
+  }
+};
+
+export const getInexpensive = async (req, res) => {
+  console.log("dey");
   try {
   } catch (error) {
     console.log(error);
   }
 };
-
-// export const getInexpensive = async (req, res) => {
-//   try {
-//     // Find all orders of the specified customer
-//     const orders = await Order.aggregate([
-//       {
-//         $match: { customerId: cusId },
-//       },
-//       {
-//         $lookup: {
-//           from: "preferances",
-//           localField: "preferanceId",
-//           foreignField: "preferanceId",
-//           as: "preferanceData",
-//         },
-//       },
-//       {
-//         $unwind: "$preferanceData",
-//       },
-//       {
-//         $unwind: "$preferanceData.productId",
-//       },
-//       {
-//         $lookup: {
-//           from: "products",
-//           let: { productId: "$preferanceData.productId" },
-//           pipeline: [
-//             {
-//               $match: {
-//                 $expr: { $eq: ["$productId", "$$productId"] },
-//               },
-//             },
-//           ],
-//           as: "popularProducts",
-//         },
-//       },
-//       {
-//         $group: {
-//           _id: "$preferanceData.productId",
-//           count: { $sum: 1 },
-//           popularProducts: { $first: "$popularProducts" },
-//         },
-//       },
-//     ]);
-
-//     res.status(200).json(orders);
-//   } catch (error) {
-//     console.log(error.message);
-//     res.status(500).json({
-//       message: "Error finding most popular product",
-//       error: error.message,
-//     });
-//   }
-// };
