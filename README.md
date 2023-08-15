@@ -1,4 +1,4 @@
-Project Name
+<h1>Project Name</h1>
 A project demonstrating customer data analysis and UI display.
 
 Technologies Used
