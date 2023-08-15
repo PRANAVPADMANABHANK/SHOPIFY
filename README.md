@@ -1,35 +1,36 @@
-<h1>Project Name</h1>
+# Project Name
+
 A project demonstrating customer data analysis and UI display.
 
-Technologies Used
-Node.js
-Express.js
-MongoDB
-React.js
-HTML, CSS
-Setup
-Clone the repository and install dependencies for the API and UI.
+## Technologies Used
 
-Configure API with database connection URL and other settings.
+- Node.js
+- Express.js
+- MongoDB
+- React.js
+- HTML, CSS
 
-Update API endpoint URLs in the UI code.
+## Setup
 
-API Endpoints
-GET /api/popular-product: Most popular product.
-GET /api/customers-ordered-all-products: Customers who ordered all products.
-GET /api/customers-inexpensive-items: Customers with inexpensive items.
-User Interface
+1. Clone the repository and install dependencies for the API and UI.
+
+2. Configure API with database connection URL and other settings.
+
+3. Update API endpoint URLs in the UI code.
+
+## API Endpoints
+
+1. **GET /api/popular-product**: Most popular product.
+2. **GET /api/customers-ordered-all-products**: Customers who ordered all products.
+3. **GET /api/customers-inexpensive-items**: Customers with inexpensive items.
+
+## User Interface
+
 Displays results through tables, charts, or UI components.
 
-Usage
-Start API server: npm start in api directory.
+## Usage
 
-Start UI server: npm start in ui directory.
-
-Access UI at http://localhost:3000.
-
-Contributing
-Issues and pull requests are welcome!
-
-License
-This project is licensed under the MIT License.
+1. Start API server:
+   ```sh
+   cd api
+   npm start
