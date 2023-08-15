@@ -20,9 +20,13 @@ A project demonstrating customer data analysis and UI display.
 
 ## API Endpoints
 
-1. **GET /api/popular-product**: Most popular product.
-2. **GET /api/customers-ordered-all-products**: Customers who ordered all products.
-3. **GET /api/customers-inexpensive-items**: Customers with inexpensive items.
+1. **GET /api/products**: GET All Products.
+1. **POST /api/products**: POST All Products.![customerDetailsPage](https://github.com/PRANAVPADMANABHANK/SHOPIFY/assets/120234904/49676e54-8c2e-4c28-a829-d0093d218641)
+
+2. **POST /api/preferances**: POST With PreferanceId.
+3. **GET /api/orders/allCustomers**: GET Customers With Popular items and inexpensive item.
+4. **GET /api/orders/:id**: .
+5. **POST /api/orders/**: POST Orders.
 
 ## User Interface
 
