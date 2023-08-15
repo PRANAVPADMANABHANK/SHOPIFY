@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './PopularProducts.css';
-import newRequest from '../../utils/newRequest';
 import ProductList1 from '../ProductList1/ProductList1';
 import axios from 'axios';
 

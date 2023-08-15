@@ -2,17 +2,14 @@ import React from "react";
 import "./ProductList1.css";
 
 const ProductList1 = ({ data, dataSetName }) => {
-  console.log(data, "data.orders");
   console.table(data, `Data for ${dataSetName}`);
 
   // Extract _id values from each item in the array
   const ids = data.map((item) => item._id);
 
   console.table(data, `Data for ${dataSetName}`);
-  console.log("IDs:", ids);
 
   const arr = ids.includes(1 && 2 && 3 && 4 && 5);
-  console.log(arr, "arr");
 
   // console.log(dataSetName,"data.orders2")
   const products = data.flatMap((item) => item.popularProducts);

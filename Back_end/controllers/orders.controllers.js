@@ -1,6 +1,4 @@
 import Order from "../models/orders.model.js";
-import User from "../models/orders.model.js";
-import Preferance from "../models/customerPreferance.model.js";
 
 export const createOrder = async (req, res) => {
   try {
@@ -78,7 +76,6 @@ export const getOrder = async (req, res) => {
         },
       },
     ]);
-    console.log(orders, "orders");
 
     const orders2 = await Order.aggregate([
       {
@@ -126,14 +123,11 @@ export const getOrder = async (req, res) => {
       },
     ]);
 
-    console.log(orders2, "orders2");
-
     const responseData = {
       orders: orders,
       orders2: orders2,
     };
 
-    console.log(responseData, "responseData");
     res.status(200).json(responseData);
   } catch (error) {
     console.log(error.message);
@@ -141,21 +135,5 @@ export const getOrder = async (req, res) => {
       message: "Error finding most popular product",
       error: error.message,
     });
-  }
-};
-
-export const getAllCustomers = async (req, res) => {
-  console.log("hhhh");
-  try {
-    const productIdsToCheck = [1, 2, 3, 4, 5];
-
-    const usersWithMatchingPreferences = await User.find({
-      customerId: { $in: ["user1", "user2", "user3", "user4", "user5"] },
-    });
-
-    // Send the response back to the client
-    res.status(200).json(usersWithMatchingPreferences);
-  } catch (error) {
-    console.error("Error checking user preferences:", error);
   }
 };

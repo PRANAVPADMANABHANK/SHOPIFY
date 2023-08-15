@@ -1,43 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./CustomersAllProducts.css";
 import CustomersInexpensiveProduct from "../customers-inexpensiveProduct/CustomersInexpensiveProduct";
-import newRequest from "../../utils/newRequest";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 const CustomersAllProducts = () => {
-  
- // @tanstack/react-query data fetching
-const { data } = useQuery({
-  queryKey: ["allCustomers"],
-  queryFn: () =>
-    newRequest.get(`orders/allCustomers`).then((res) => {
-      console.log("reached");
-      return res.data;
-    }),
-});
-console.log(data, ")))))))))");
-
-// @tanstack/react-query data fetching
-const { data: dataInexpesive } = useQuery({
-  queryKey: ["inexpensive"],
-  queryFn: () =>
-    newRequest.get(`orders/inexpensive`).then((res) => {
-      console.log("reached");
-      return res.data; // Use res.data instead of res.dataInexpesive
-    }),
-});
-
-console.log(dataInexpesive, "]]]]");
-
- 
-
   return (
     <>
       <br />
       <br />
       <br />
-      <h2> Original records (<i>for referance</i>) </h2>
+      <h2>
+        {" "}
+        Original records (<i>for referance</i>){" "}
+      </h2>
 
       <div className="table-container">
         <h2>customers who have ordered all products</h2>
