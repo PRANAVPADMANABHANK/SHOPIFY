@@ -78,11 +78,9 @@ export const getOrder = async (req, res) => {
         },
       },
     ]);
-    console.log(orders,"orders")
+    console.log(orders, "orders");
 
-
-
-      const orders2 = await Order.aggregate([
+    const orders2 = await Order.aggregate([
       {
         $match: { customerId: cusId },
       },
@@ -126,20 +124,17 @@ export const getOrder = async (req, res) => {
           "popularProducts.count": "$count",
         },
       },
-      
     ]);
 
-    console.log(orders2, "orders2")
-
+    console.log(orders2, "orders2");
 
     const responseData = {
       orders: orders,
-      orders2: orders2
+      orders2: orders2,
     };
 
-    console.log(responseData,"responseData")
+    console.log(responseData, "responseData");
     res.status(200).json(responseData);
-    
   } catch (error) {
     console.log(error.message);
     res.status(500).json({
@@ -150,28 +145,17 @@ export const getOrder = async (req, res) => {
 };
 
 export const getAllCustomers = async (req, res) => {
-  console.log("hhhh")
-   try {
+  console.log("hhhh");
+  try {
     const productIdsToCheck = [1, 2, 3, 4, 5];
 
     const usersWithMatchingPreferences = await User.find({
-      customerId: { $in: ['user1', 'user2', 'user3', 'user4', 'user5'] },
-      
+      customerId: { $in: ["user1", "user2", "user3", "user4", "user5"] },
     });
-   
-    
 
     // Send the response back to the client
     res.status(200).json(usersWithMatchingPreferences);
   } catch (error) {
     console.error("Error checking user preferences:", error);
-  }
-};
-
-export const getInexpensive = async (req, res) => {
-  console.log("dey");
-  try {
-  } catch (error) {
-    console.log(error);
   }
 };

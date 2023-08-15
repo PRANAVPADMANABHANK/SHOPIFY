@@ -27,7 +27,7 @@ app.use(cors({ origin: "http://localhost:3000" })); //"origin" => represents we 
 app.use(express.json()); //this will allow to pass any json from the client side
 
 // endpoints
-app.use("/api/products", productRoute); 
+app.use("/api/products", productRoute);
 app.use("/api/preferances", customerRoute);
 app.use("/api/orders", orderRoute);
 
