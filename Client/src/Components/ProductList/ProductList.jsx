@@ -15,6 +15,8 @@ const ProductList = () => {
 
   console.log(data);
   return (
+    <>
+      <h2 style={{textAlign:"center", marginTop:"30px"}}>All Products</h2>
     <section className="container">
       {data?.map((product, key) => {
         return (
@@ -28,6 +30,7 @@ const ProductList = () => {
         );
       })}
     </section>
+    </>
   );
 };
 

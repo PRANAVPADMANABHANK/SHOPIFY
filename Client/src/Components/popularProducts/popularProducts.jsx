@@ -11,11 +11,11 @@ const PopularProducts = () => {
   // Function to select an item
   const selectItem = async (itemId) => {
     setSelectedItem(itemId);
-    console.log(itemId, ']]]]]]');
+    // console.log(itemId, ']]]]]]');
     
     try {
       const response = await axios.get(`http://localhost:8800/api/orders/${itemId}`);
-      console.log(response.data, 'Response status:');
+      // console.log(response.data, 'Response status:');
       setFetchedData(response.data); // Update the state with fetched data
       
     } catch (error) {
@@ -45,8 +45,12 @@ const PopularProducts = () => {
         </div>
       ))}
     </div>
-      {fetchedData && <ProductList1 data={fetchedData} />} 
-      </>
+    {fetchedData && (
+  <>
+    <ProductList1 data={fetchedData.orders} dataSetName="orders" />
+    <ProductList1 data={fetchedData.orders2} dataSetName="orders2" />
+  </>
+)}      </>
   );
 };
 

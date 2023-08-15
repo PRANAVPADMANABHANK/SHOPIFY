@@ -37,6 +37,8 @@ console.log(dataInexpesive, "]]]]");
       <br />
       <br />
       <br />
+      <h2> Original records (<i>for referance</i>) </h2>
+
       <div className="table-container">
         <h2>customers who have ordered all products</h2>
         <table className="responsive-table">

@@ -78,8 +78,68 @@ export const getOrder = async (req, res) => {
         },
       },
     ]);
+    console.log(orders,"orders")
 
-    res.status(200).json(orders);
+
+
+      const orders2 = await Order.aggregate([
+      {
+        $match: { customerId: cusId },
+      },
+      {
+        $lookup: {
+          from: "preferances",
+          localField: "preferanceId",
+          foreignField: "preferanceId",
+          as: "preferanceData",
+        },
+      },
+      {
+        $unwind: "$preferanceData",
+      },
+      {
+        $unwind: "$preferanceData.productId",
+      },
+      {
+        $lookup: {
+          from: "products",
+          let: { productId: "$preferanceData.productId" },
+          pipeline: [
+            {
+              $match: {
+                $expr: { $eq: ["$productId", "$$productId"] },
+              },
+            },
+          ],
+          as: "popularProducts",
+        },
+      },
+      {
+        $group: {
+          _id: "$preferanceData.productId",
+          count: { $sum: 1 },
+          popularProducts: { $first: "$popularProducts" },
+        },
+      },
+      {
+        $addFields: {
+          "popularProducts.count": "$count",
+        },
+      },
+      
+    ]);
+
+    console.log(orders2, "orders2")
+
+
+    const responseData = {
+      orders: orders,
+      orders2: orders2
+    };
+
+    console.log(responseData,"responseData")
+    res.status(200).json(responseData);
+    
   } catch (error) {
     console.log(error.message);
     res.status(500).json({
@@ -90,6 +150,7 @@ export const getOrder = async (req, res) => {
 };
 
 export const getAllCustomers = async (req, res) => {
+  console.log("hhhh")
    try {
     const productIdsToCheck = [1, 2, 3, 4, 5];
 
