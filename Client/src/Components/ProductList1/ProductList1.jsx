@@ -11,7 +11,6 @@ const ProductList1 = ({ data, dataSetName }) => {
 
   const arr = ids.includes(1 && 2 && 3 && 4 && 5);
 
-  // console.log(dataSetName,"data.orders2")
   const products = data.flatMap((item) => item.popularProducts);
 
   return (
