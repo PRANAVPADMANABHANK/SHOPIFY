@@ -15,11 +15,9 @@ export const createCustomerPreferance = async (req, res) => {
 
     res.status(201).json(savedCustomerPreferance); // Return the saved customer preference as the response
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Customer preference creation failed",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Customer preference creation failed",
+      error: error.message,
+    });
   }
 };

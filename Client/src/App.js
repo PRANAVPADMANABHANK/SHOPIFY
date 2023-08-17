@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import Header from "./Components/Header/Header";
 import ProductList from "./Components/ProductList/ProductList";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Import BrowserRouter and other routing components

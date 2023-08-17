@@ -10,7 +10,7 @@ const OrderSchema = new Schema(
     },
     preferanceId: {
       type: [String],
-      required: true
+      required: true,
     },
   },
   {
