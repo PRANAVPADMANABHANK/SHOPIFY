@@ -1,19 +1,21 @@
 import Order from "../models/orders.model.js";
 
+
+//This function used to post user orders to the database
 export const createOrder = async (req, res) => {
   try {
-    const { customerId, preferanceId } = req.body; // Assuming you're sending these details in the request body
 
-    // Create a new order instance using the Order model
+    const { customerId, preferanceId } = req.body; 
+
     const newOrder = new Order({
       customerId,
       preferanceId,
     });
 
-    // Save the new order to the database
     const savedOrder = await newOrder.save();
 
-    res.status(201).json(savedOrder); // Return the saved order as the response
+    res.status(201).json(savedOrder);
+
   } catch (error) {
     res
       .status(500)
@@ -25,6 +27,7 @@ export const getOrder = async (req, res) => {
   let cusId = req.params.id;
 
   try {
+
     // Find all orders of the specified customer
     const orders = await Order.aggregate([
       {
@@ -72,7 +75,8 @@ export const getOrder = async (req, res) => {
       },
       {
         $match: {
-          count: { $gte: 2 }, // Filter out documents with count < 2
+          // Filter out documents with count < 2
+          count: { $gte: 2 }, 
         },
       },
     ]);
